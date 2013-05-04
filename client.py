@@ -1,28 +1,39 @@
 from socket import *
-import thread
+import threading
+import sys
 
-HOST = 'localhost'
-PORT = 21568
-BUFSIZE = 1024
-ADDR = (HOST, PORT)
+host = 'localhost'
+port = 9000
+buffer_size = 1024
 
-tcpCliSock = socket(AF_INET, SOCK_STREAM)
-tcpCliSock.connect(ADDR)
+sock = socket(AF_INET, SOCK_STREAM)
+sock.connect((host, port))
+
+print("Connected to ", host, ":", port)
+print("Type and press enter to send a message.")
+print("Type '/list' to show who is on the chat, '/log' to see your sent messages, /exit' to quit")
 
 def inputLoop():
     while True:
-        u_in = raw_input("> ");
+        u_in = input("> ");
         if u_in:
-            tcpCliSock.send(u_in+"\n");
+            sock.send(bytes(u_in+"\n", "utf-8"));
+            if u_in == "/exit":
+                sys.exit(0) # closes this thread
 
 def add(data):
-    print data
+    print (data.decode('utf-8'))
 
 def loop():
     while True:
-        data = tcpCliSock.recv(BUFSIZE)
+        data = sock.recv(buffer_size)
+        
+        # if no data then exit. Sign of socket shutdown
+        if data == b'':
+            break
         if data:
             add(data);
-thread.start_new_thread(loop, ());
+
+threading.Thread(target = loop).start()
 
 inputLoop()
