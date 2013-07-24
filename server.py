@@ -3,7 +3,7 @@ import socket
 import threading
 
 # our ip address
-ip = "127.0.0.1"
+ip = "0.0.0.0"
 # incoming connection port
 port = 9000
 # message size. can be reduced to speed it up.
