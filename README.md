@@ -3,7 +3,14 @@ Python TCP/IP Chat
 
 For **python 3** *only*.
 
-Run your `server.py` anywhere you like, edit the port to whatever is available. Then configure the `client.py` to match `server.py` configuration. Once that is done, lauch `server.py` followed by `client.py` to start chatting!
+How to in 5 steps:
+------------------
+
+1. Configure `server.py` port variable to whatever is available on your server.
+2. Configure `client.py` to match `server.py`'s configuration. (Hostname and Port)
+3. Start `server.py`
+4. Start `client.py`.
+5. That's it
 
 Commands:
 ---------
